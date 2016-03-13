@@ -10,19 +10,24 @@ class UploaderController extends Controller
 {
     public function uploadAction(Request $request)
     {
-        $fileOrig = $request->files->get('tiny_inner_image');
-        $fileName = time() . '-' . $fileOrig->getClientOriginalName();
+        $logger = $this->get('logger');
 
-        $webFolder = realpath($this->getParameter('kernel.root_dir') . '../web/');
-        $filePath = $webFolder . $this->container->getParameter('tinymce-fastload-savepath');
+        $fileOrig = $request->files->get('tiny_inner_image');
+        $fileName = time().'-'.$fileOrig->getClientOriginalName();
+        $filePath  = realpath($this->container->getParameter('tinymce-fastload-savepath'));
+
+        $logger->debug('TinyMCE file storage directory: '.$filePath);
 
         if (!file_exists($filePath) && !is_dir($filePath)) {
+            $logger->info('TinyMCE creating directory '.$filePath);
             mkdir($filePath);
         }
 
         $fileOrig->move($filePath, $fileName);
 
-        $response = new Response('<img src="/'.$this->getParameter('tinymce-fastload-urlpath') . $fileName . '"/>');
+        $logger->debug('TinyMCE image response '.$this->getParameter('tinymce-fastload-urlpath').$fileName);
+
+        $response = new Response('<img src="'.$this->getParameter('tinymce-fastload-urlpath') . $fileName . '"/>');
         $response->headers->set('Content-Type', 'text/html');
 
         return $response;
