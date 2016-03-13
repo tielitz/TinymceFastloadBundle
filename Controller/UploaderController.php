@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Gwinn\TinymceFastloadBundle\Util\FilenameSanitizer;
+
 class UploaderController extends Controller
 {
     public function uploadAction(Request $request)
@@ -13,7 +15,7 @@ class UploaderController extends Controller
         $logger = $this->get('logger');
 
         $fileOrig = $request->files->get('tiny_inner_image');
-        $fileName = time().'-'.$fileOrig->getClientOriginalName();
+        $filename = time().'-'.FilenameSanitizer::sanitize($fileOrig->getClientOriginalName());
         $filePath  = realpath($this->container->getParameter('gwinn_tinymce_fastload.config.upload_path'));
 
         $logger->debug('TinyMCE file storage directory: '.$filePath);
@@ -23,9 +25,9 @@ class UploaderController extends Controller
             mkdir($filePath);
         }
 
-        $fileOrig->move($filePath, $fileName);
+        $fileOrig->move($filePath, $filename);
 
-        $urlPath = $this->getParameter('gwinn_tinymce_fastload.config.url_path').$fileName;
+        $urlPath = $this->getParameter('gwinn_tinymce_fastload.config.url_path').$filename;
 
         $logger->debug('TinyMCE generated image response '.$urlPath);
 
