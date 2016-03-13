@@ -10,9 +10,31 @@ Add bundle as a dependency to the composer.json of your application
 ```php
     "require": {
         ...
-        "gwinn/tinymce-fastload-bundle": "dev-master"
+        "gwinn/tinymce-fastload-bundle": "2.0.0"
         ...
     },
+```
+Add the custom repository
+```php
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "tielitz/tinymce-fastload-bundle",
+                "version": "2.0.0",
+                "source": {
+                    "url": "https://github.com/tielitz/TinymceFastloadBundle.git",
+                    "type": "git",
+                    "reference": "2.0.0"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "Gwinn\\TinymceFastloadBundle\\": ""
+                    }
+                }
+            }
+        }
+    ]
 ```
 
 ## Add bundle to your application kernel.
@@ -35,7 +57,7 @@ Add bundle as a dependency to the composer.json of your application
 
 ### config.yml
 
-Similar to tinymce-bundle, just add to assetic & stfalcon_tinymce section in config.yml
+Similar to tinymce-bundle, just add to assetic & stfalcon_tinymce & gwinn_tinymce_fastload section in config.yml
 
 ```yaml
 assetic:
@@ -54,6 +76,11 @@ stfalcon_tinymce:
     theme:
         simple:
             toolbar: "... | image_uploader | ..."
+    ...
+
+gwinn_tinymce_fastload:
+    upload_path: '%tinymce.upload_path%'
+    url_path:    '%tinymce.url_path%'
 ```
 
 ### parameters.yml
@@ -61,8 +88,8 @@ stfalcon_tinymce:
 Add path to upload folder
 
 ```yaml
-    tinymce-fastload-savepath: 'files/'
-    tinymce-fastload-urlpath:  'files/' # Trailing slash!
+    tinymce.upload_path: '%kernel.root_dir%/../web/uploads/images/'
+    tinymce.url_path:    '/uploads/images/
 ```
 
 ### routing.yml
