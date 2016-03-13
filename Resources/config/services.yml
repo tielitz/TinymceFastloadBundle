@@ -5,4 +5,4 @@ services:
     gwinn_tinymce_fastload.file_mover:
         class: Gwinn\TinymceFastloadBundle\Util\FileMover
         calls:
-            - [setFilenameGenerator, ['Gwinn\TinymceFastloadBundle\Util\FilenameSanitizer\FilenameGeneratorSanitizedTime']]
+            - [setFilenameGenerator, ['Gwinn\TinymceFastloadBundle\FilenameGenerator\FilenameGeneratorSanitizedTime']]

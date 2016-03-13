@@ -1,0 +1,8 @@
+<?php
+
+namespace Gwinn\TinymceFastloadBundle\Exception;
+
+class InvalidMappingException extends \InvalidArgumentException
+{
+    //
+}
