@@ -14,7 +14,7 @@ class UploaderController extends Controller
 
         $fileOrig = $request->files->get('tiny_inner_image');
         $fileName = time().'-'.$fileOrig->getClientOriginalName();
-        $filePath  = realpath($this->container->getParameter('tinymce-fastload-savepath'));
+        $filePath  = realpath($this->container->getParameter('gwinn_tinymce_fastload.upload_path'));
 
         $logger->debug('TinyMCE file storage directory: '.$filePath);
 
@@ -25,9 +25,9 @@ class UploaderController extends Controller
 
         $fileOrig->move($filePath, $fileName);
 
-        $logger->debug('TinyMCE image response '.$this->getParameter('tinymce-fastload-urlpath').$fileName);
+        $logger->debug('TinyMCE image response '.$this->getParameter('gwinn_tinymce_fastload.url_path').$fileName);
 
-        $response = new Response('<img src="'.$this->getParameter('tinymce-fastload-urlpath') . $fileName . '"/>');
+        $response = new Response('<img src="'.$this->getParameter('gwinn_tinymce_fastload.url_path') . $fileName . '"/>');
         $response->headers->set('Content-Type', 'text/html');
 
         return $response;
