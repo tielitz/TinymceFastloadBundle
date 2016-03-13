@@ -43,7 +43,7 @@ class FileMover
      */
     public function move(File $file, $targetPath)
     {
-        $filenameWithoutExt = substr($file->getFilename(), 0, strrpos($file->getFilename(), '.'));
+        $filenameWithoutExt = substr($file->getClientOriginalName(), 0, strrpos($file->getClientOriginalName(), '.'));
         $fileExtension      = $file->getExtension();
 
         $generator = $this->filenameGenerator;
