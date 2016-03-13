@@ -1,7 +1,7 @@
 function tinymce_button_image_uploader(ed) {
     $('#tinymce_file_uploader input[type=file]').click();
 
-    $('#tiny_inner_image').bind('change', function (event) {
+    $('#tiny_inner_image').one('change', function (event) {
         event.stopPropagation();
         event.preventDefault();
 
@@ -20,7 +20,7 @@ function tinymce_button_image_uploader(ed) {
                 }
             },
             error: function () {
-                alert('Whoa! Something goes wrong. Try again later');
+                alert('Whoa! Something went wrong. Try again later.');
             }
         });
     });
