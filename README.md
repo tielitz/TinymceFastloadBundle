@@ -61,7 +61,8 @@ stfalcon_tinymce:
 Add path to upload folder
 
 ```yaml
-    tinymce-fastload-savepath: "%kernel.root_dir%/../web/files/"
+    tinymce-fastload-savepath: 'files/'
+    tinymce-fastload-urlpath:  'files/' # Trailing slash!
 ```
 
 ### routing.yml

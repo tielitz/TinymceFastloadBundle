@@ -12,7 +12,9 @@ class UploaderController extends Controller
     {
         $fileOrig = $request->files->get('tiny_inner_image');
         $fileName = time() . '-' . $fileOrig->getClientOriginalName();
-        $filePath = $this->container->getParameter('tinymce-fastload-savepath');
+
+        $webFolder = realpath($this->getParameter('kernel.root_dir') . '../web/');
+        $filePath = $webFolder . $this->container->getParameter('tinymce-fastload-savepath');
 
         if (!file_exists($filePath) && !is_dir($filePath)) {
             mkdir($filePath);
@@ -20,7 +22,7 @@ class UploaderController extends Controller
 
         $fileOrig->move($filePath, $fileName);
 
-        $response = new Response('<img src="/files/' . $fileName . '"/>');
+        $response = new Response('<img src="/'.$this->getParameter('tinymce-fastload-urlpath') . $fileName . '"/>');
         $response->headers->set('Content-Type', 'text/html');
 
         return $response;
