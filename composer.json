@@ -1,5 +1,5 @@
 {
-    "name": "gwinn/tinymce-fastload-bundle",
+    "name": "tielitz/tinymce-fastload-bundle",
     "description": "This Bundle integrates in TinyMCE WYSIWYG editor fast images upload",
     "keywords": ["wysiwyg", "tinymce", "editor"],
     "type": "symfony-bundle",
@@ -21,12 +21,7 @@
             "Gwinn\\TinymceFastloadBundle": ""
         }
     },
-    "target-dir" : "Gwinn/TinymceFastloadBundle",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    }
+    "target-dir" : "Gwinn/TinymceFastloadBundle"
 }
 
 
