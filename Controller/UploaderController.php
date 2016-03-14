@@ -19,6 +19,12 @@ class UploaderController extends Controller
         $movedFile = $this->get('gwinn_tinymce_fastload.file_mover')->move($fileOrig, $filePath);
 
         $urlPath = $this->getParameter('gwinn_tinymce_fastload.config.url_path').$movedFile->getFilename();
+
+        // Append domain host and scheme if allowed via configuration
+        if ($this->getParameter('gwinn_tinymce_fastload.config.add_host')) {
+            $urlPath = $request->getScheme().'://'.$request->getHost().$urlPath;
+        }
+
         $logger->debug('TinyMCE generated image response '.$urlPath);
 
         $response = new Response('<img src="'.$urlPath.'"/>');

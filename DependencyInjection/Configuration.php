@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('upload_path')->end()
             ->scalarNode('url_path')->end()
+            ->booleanNode('add_host')->defaultTrue()->end()
             ->end();
 
         return $treeBuilder;
