@@ -126,6 +126,12 @@ Add bundle routes
     {% endstylesheets %}
 {% endblock %}
 
+{% block javascripts %}
+  {% javascripts output='js/compiled/tinymce-image-upload.js' '@GwinnTinymceFastloadBundle/Resources/public/js/tinymce-image-upload.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
 ```
 
 ## Copy resources to web folder
