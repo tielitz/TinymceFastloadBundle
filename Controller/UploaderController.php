@@ -5,6 +5,7 @@ namespace Gwinn\TinymceFastloadBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UploaderController extends Controller
 {
@@ -13,6 +14,21 @@ class UploaderController extends Controller
         $logger = $this->get('logger');
 
         $fileOrig = $request->files->get('tiny_inner_image');
+
+        // Validation
+        $errors = $this->get('validator')->validate(
+            $fileOrig,
+            new Assert\Image(array(
+                'maxSize' => '2M',
+            ))
+        );
+
+        if (count($errors) !== 0) {
+            $logger->warn('TinyMCE failed image validation '.$errors[0]->getMessage());
+            return new Response($errors[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+
         $filePath  = realpath($this->container->getParameter('gwinn_tinymce_fastload.config.upload_path'));
         $logger->debug('TinyMCE file storage directory: '.$filePath);
 
