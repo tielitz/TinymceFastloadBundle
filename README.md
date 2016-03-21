@@ -1,7 +1,7 @@
 # TinymceFastloadBundle
 
 This bundle extends https://github.com/stfalcon/TinymceBundle so
-https://github.com/stfalcon/TinymceBundle/blob/master/README.md must be readed first
+https://github.com/stfalcon/TinymceBundle/blob/master/README.md must be read first
 
 ## Installation
 
