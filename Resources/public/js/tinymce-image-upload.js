@@ -17,8 +17,6 @@ $('#tiny_inner_image').bind('change', function (event) {
         success: function (response) {
             if (typeof(tinymce) != 'undefined') {
                 ed.selection.setContent(response);
-                // Remove uploaded image, so it is possibly to reupload the same
-                $('#tiny_inner_image').closest('form').get(0).reset();
                 flashes.success('', 'Bild wurde hochgeladen');
             }
         },
@@ -30,6 +28,7 @@ $('#tiny_inner_image').bind('change', function (event) {
             }
         },
         complete: function () {
+            $('#tiny_inner_image').closest('form').get(0).reset();
             ed.getBody().setAttribute('contenteditable', 'true');
             tmpMsg.alert('close');
             tinyContainer.css({opacity: 1});
