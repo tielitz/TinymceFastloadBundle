@@ -1,7 +1,4 @@
 $('#tiny_inner_image').bind('change', function (event) {
-    // event.stopPropagation();
-    // event.preventDefault();
-
     formElement = document.getElementById("tinymce_file_uploader");
     data = new FormData(formElement);
     ed = tinymce.get('news_type_text');
@@ -20,15 +17,17 @@ $('#tiny_inner_image').bind('change', function (event) {
         success: function (response) {
             if (typeof(tinymce) != 'undefined') {
                 ed.selection.setContent(response);
-
                 // Remove uploaded image, so it is possibly to reupload the same
                 $('#tiny_inner_image').closest('form').get(0).reset();
                 flashes.success('', 'Bild wurde hochgeladen');
             }
         },
-        error: function () {
-            // alert('Bild konnte nicht erfolgreich hochgeladen werden.');
-            flashes.danger('', 'Bild konnte nicht hochgeladen werden');
+        error: function (response) {
+            if (response.status == 400) {
+                flashes.danger('', response.responseText);
+            } else {
+                flashes.danger('', 'Bild konnte nicht hochgeladen werden');
+            }
         },
         complete: function () {
             ed.getBody().setAttribute('contenteditable', 'true');
