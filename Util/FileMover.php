@@ -2,7 +2,7 @@
 
 namespace Gwinn\TinymceFastloadBundle\Util;
 
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Gwinn\TinymceFastloadBundle\FilenameGenerator\FilenameGeneratorInterface;
 use Gwinn\TinymceFastloadBundle\Exception\InvalidMappingException;
@@ -37,14 +37,14 @@ class FileMover
     /**
      * Moves the file to the targetPath. Creates the path if it doesn't exist
      *
-     * @param  File   $file       The file to move
+     * @param  UploadedFile   $file       The file to move
      * @param  string $targetPath The target path
-     * @return File               Moved file
+     * @return UploadedFile               Moved file
      */
-    public function move(File $file, $targetPath)
+    public function move(UploadedFile $file, $targetPath)
     {
         $filenameWithoutExt = substr($file->getClientOriginalName(), 0, strrpos($file->getClientOriginalName(), '.'));
-        $fileExtension      = $file->getExtension();
+        $fileExtension      = '.'.$file->getClientOriginalExtension();
 
         $generator = $this->filenameGenerator;
         $filename  = $generator::generate($filenameWithoutExt, $fileExtension, $file);
