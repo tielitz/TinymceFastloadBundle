@@ -1,7 +1,8 @@
 $('#tiny_inner_image').bind('change', function (event) {
     formElement = document.getElementById("tinymce_file_uploader");
     data = new FormData(formElement);
-    ed = tinymce.get('news_type_text');
+
+    ed = tinymce.get($('.tinymce').attr('id'));
 
     var tmpMsg = flashes.info('', 'Bild wird hochgeladen');
     ed.getBody().setAttribute('contenteditable', 'false');
